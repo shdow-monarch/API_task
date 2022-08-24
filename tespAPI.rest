@@ -6,7 +6,7 @@ POST http://localhost:3030/product
 Content-Type: application/json
 
 {
-  "brand": "test",
+  "brand": "nokia",
   "model": "test",
   "cost": 400
 }
@@ -18,13 +18,13 @@ GET http://localhost:3030/product/63061fbb7769bd14adf52eda
 
 ###
 
-PUT http://localhost:3030/product/6306213c0ab54344ec2a8be9
+PUT http://localhost:3030/product/63061fbb7769bd14adf52eda
 Content-Type: application/json
 
 {
-  "brand": "oppo"
+  "brand": "xiaomi"
 }
 
 ###
 
-DELETE http://localhost:3030/product/63061fcd7769bd14adf52edf
+DELETE http://localhost:3030/product/6306213c0ab54344ec2a8be9
