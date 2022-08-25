@@ -13,17 +13,17 @@ class ProductController {
 
   async getProduct(req, resp) {
     try {
-      product = await Product.find({ model: req.body.model });
-      const isExist = !_.isEmpty(product) ? true : false;
-      if (!isExist) {
-        const product = await Product.findById(req.params.id);
+      const product = await Product.findById(req.params.id);
+      if (product !== null) {
         resp.status(200).json(product);
       } else {
-        return resp.status(400).json({ message: "Product already exist" });
+        resp.status(404).json({ message: "Product not found" });
       }
     } catch (error) {
-      resp.status(404).json({ message: "Product not found" });
+      resp.status(500).json({ message: error.message });
     }
+    // const product = await Product.findById(req.params.id);
+    // resp.status(200).json(product);
   }
 
   async createProduct(req, resp) {
