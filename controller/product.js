@@ -1,5 +1,5 @@
 const Product = require("../model/product");
-
+const _ = require("lodash");
 class ProductController {
   async getAllProduct(_, resp) {
     try {
@@ -11,25 +11,69 @@ class ProductController {
   }
 
   async getProduct(req, resp) {
-    await findProduct(req, resp);
-    const product = await Product.findById(req.params.id);
-    resp.status(200).json(product);
+    try {
+      const product = await Product.findById(req.params.id);
+      resp.status(200).json(product);
+    } catch (error) {
+      resp.status(404).json({ message: "Product not found" });
+    }
   }
 
   async createProduct(req, resp) {
-    let newProduct = Product(req.body);
-    let result = await newProduct.save();
-    resp.status(201).json(result);
+    let product;
+    try {
+      product = await Product.find({ model: req.body.model });
+    } catch (error) {
+      return resp.status(500).json({ message: error.message });
+    }
+    const isExist = !_.isEmpty(product) ? true : false;
+    if (!isExist) {
+      let newProduct = Product(req.body);
+      let result = await newProduct.save();
+      resp.status(201).json(result);
+    } else {
+      return resp.status(400).json({ message: "Product already exist" });
+    }
   }
 
   async updateProduct(req, resp) {
-    await findProduct(req, resp);
+    //for post need to change it to put
+
     try {
-      await Product.findByIdAndUpdate(req.params.id, req.body);
-      resp.status(200).json(await Product.findById(req.params.id));
+      const checkProduct = await Product.findById(req.params.id);
+      if (checkProduct !== null) {
+        const product = await Product.find({ model: req.body.model });
+        const isExist = !_.isEmpty(product) ? true : false;
+        if (!isExist) {
+          await Product.findByIdAndUpdate(req.params.id, req.body);
+          resp.status(200).json(await Product.findById(req.params.id));
+        } else {
+          return resp.status(400).json({ message: "Product already exist" });
+        }
+      } else {
+        return resp.status(404).json({ message: "Product not found" });
+      }
     } catch (error) {
-      return resp.status(400).json({ message: error.message });
+      return resp.status(500).json({ message: error.message });
     }
+
+    // let product;
+    // try {
+    //   product = await Product.find({ model: req.body.model });
+    // } catch (error) {
+    //   return resp.status(500).json({ message: error.message });
+    // }
+    // const isExist = !_.isEmpty(product) ? true : false;
+    // if (!isExist) {
+    //   try {
+    //     await Product.findByIdAndUpdate(req.params.id, req.body);
+    //     resp.status(200).json(await Product.findById(req.params.id));
+    //   } catch (error) {
+    //     return resp.status(400).json({ message: error.message });
+    //   }
+    // } else {
+    //   return resp.status(400).json({ message: "Product already exist" });
+    // }
   }
 
   async deleteProduct(req, resp) {
@@ -46,16 +90,16 @@ class ProductController {
   }
 }
 
-async function findProduct(req, resp) {
-  let product;
-  try {
-    product = await Product.findById(req.params.id);
-    if (product === null) {
-      return resp.status(404).json({ message: "Product not found" });
-    }
-  } catch (error) {
-    return resp.status(500).json({ message: error.message });
-  }
-}
+// async function findProduct(req, resp) {
+//   let product;
+//   try {
+//     product = await Product.findById(req.params.id);
+//     if (product === null) {
+//       return resp.status(404).json({ message: "Product not found" });
+//     }
+//   } catch (error) {
+//     return resp.status(500).json({ message: error.message });
+//   }
+// }
 
 module.exports = new ProductController();

@@ -7,7 +7,7 @@ Content-Type: application/json
 
 {
   "brand": "nokia",
-  "model": "test",
+  "model": "nokia 125",
   "cost": 400
 }
 
@@ -22,9 +22,10 @@ PUT http://localhost:3030/product/63061fbb7769bd14adf52eda
 Content-Type: application/json
 
 {
-  "brand": "xiaomi"
+  "brand": "xiaomi",
+  "model": "note 10"
 }
 
 ###
 
-DELETE http://localhost:3030/product/6306213c0ab54344ec2a8be9
+DELETE http://localhost:3030/product/6306ee065128aed0e977c5ff
