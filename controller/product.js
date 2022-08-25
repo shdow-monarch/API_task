@@ -22,8 +22,6 @@ class ProductController {
     } catch (error) {
       resp.status(500).json({ message: error.message });
     }
-    // const product = await Product.findById(req.params.id);
-    // resp.status(200).json(product);
   }
 
   async createProduct(req, resp) {
