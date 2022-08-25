@@ -17,11 +17,9 @@ class ProductController {
     try {
       if (isIdValid) {
         const product = await Product.findById(req.params.id);
-        if (product !== null) {
-          resp.status(200).json(product);
-        } else {
-          resp.status(404).json({ message: "Product not found" });
-        }
+        product !== null
+          ? resp.status(200).json(product)
+          : resp.status(404).json({ message: "Product not found" });
       } else {
         return resp.status(422).json({ message: "ObjectId is not valid" });
       }
