@@ -1,5 +1,6 @@
 const Product = require("../model/product");
 const _ = require("lodash");
+
 class ProductController {
   async getAllProduct(_, resp) {
     try {
