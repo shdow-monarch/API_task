@@ -6,26 +6,26 @@ POST http://localhost:3030/product
 Content-Type: application/json
 
 {
-  "brand": "nokia",
-  "model": "nokia 125",
+  "model": "redmi note 5 pro",
+  "processor": "snapdragon 636",
   "cost": 400
 }
 
 ###
 
-GET http://localhost:3030/product/63061fbb7769bd14adf52eda
+GET http://localhost:3030/product/6307010fe27f77d759618615
 
 
 ###
 
-PUT http://localhost:3030/product/63061fbb7769bd14adf52eda
+PUT http://localhost:3030/product/6307010fe27f77d759618615
 Content-Type: application/json
 
 {
-  "brand": "xiaomi",
-  "model": "note 10"
+  "model": "redmi 8a",
+  "processor": "mediatek"
 }
 
 ###
 
-DELETE http://localhost:3030/product/6306ee065128aed0e977c5ff
+DELETE http://localhost:3030/product/6307010fe27f77d759618615

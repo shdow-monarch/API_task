@@ -13,8 +13,14 @@ class ProductController {
 
   async getProduct(req, resp) {
     try {
-      const product = await Product.findById(req.params.id);
-      resp.status(200).json(product);
+      product = await Product.find({ model: req.body.model });
+      const isExist = !_.isEmpty(product) ? true : false;
+      if (!isExist) {
+        const product = await Product.findById(req.params.id);
+        resp.status(200).json(product);
+      } else {
+        return resp.status(400).json({ message: "Product already exist" });
+      }
     } catch (error) {
       resp.status(404).json({ message: "Product not found" });
     }
@@ -24,16 +30,16 @@ class ProductController {
     let product;
     try {
       product = await Product.find({ model: req.body.model });
+      const isExist = !_.isEmpty(product) ? true : false;
+      if (!isExist) {
+        let newProduct = Product(req.body);
+        let result = await newProduct.save();
+        resp.status(201).json(result);
+      } else {
+        return resp.status(400).json({ message: "Product already exist" });
+      }
     } catch (error) {
       return resp.status(500).json({ message: error.message });
-    }
-    const isExist = !_.isEmpty(product) ? true : false;
-    if (!isExist) {
-      let newProduct = Product(req.body);
-      let result = await newProduct.save();
-      resp.status(201).json(result);
-    } else {
-      return resp.status(400).json({ message: "Product already exist" });
     }
   }
 

@@ -1,8 +1,8 @@
 const { model, Schema } = require("mongoose");
 
 const productSchema = new Schema({
-  brand: String,
   model: String,
+  processor: String,
   cost: Number,
 });
 
