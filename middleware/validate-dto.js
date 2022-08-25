@@ -4,7 +4,7 @@ function validateDto(schema) {
       await schema.validateAsync(req.body);
       next();
     } catch (error) {
-      return resp.status(422).json(error);
+      return resp.status(422).json({mesage: error.message});
     }
   };
 }
