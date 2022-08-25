@@ -37,8 +37,6 @@ class ProductController {
   }
 
   async updateProduct(req, resp) {
-    //for post need to change it to put
-
     try {
       const checkProduct = await Product.findById(req.params.id);
       if (checkProduct !== null) {
@@ -56,24 +54,6 @@ class ProductController {
     } catch (error) {
       return resp.status(500).json({ message: error.message });
     }
-
-    // let product;
-    // try {
-    //   product = await Product.find({ model: req.body.model });
-    // } catch (error) {
-    //   return resp.status(500).json({ message: error.message });
-    // }
-    // const isExist = !_.isEmpty(product) ? true : false;
-    // if (!isExist) {
-    //   try {
-    //     await Product.findByIdAndUpdate(req.params.id, req.body);
-    //     resp.status(200).json(await Product.findById(req.params.id));
-    //   } catch (error) {
-    //     return resp.status(400).json({ message: error.message });
-    //   }
-    // } else {
-    //   return resp.status(400).json({ message: "Product already exist" });
-    // }
   }
 
   async deleteProduct(req, resp) {
@@ -89,17 +69,5 @@ class ProductController {
     }
   }
 }
-
-// async function findProduct(req, resp) {
-//   let product;
-//   try {
-//     product = await Product.findById(req.params.id);
-//     if (product === null) {
-//       return resp.status(404).json({ message: "Product not found" });
-//     }
-//   } catch (error) {
-//     return resp.status(500).json({ message: error.message });
-//   }
-// }
 
 module.exports = new ProductController();
