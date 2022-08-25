@@ -1,4 +1,4 @@
-const ObjectID = require("mongodb").ObjectID;
+const { ObjectId } = require("mongodb");
 const _ = require("lodash");
 const Product = require("../model/product");
 
@@ -13,7 +13,7 @@ class ProductController {
   }
 
   async getProduct(req, resp) {
-    const isIdValid = ObjectID.isValid(req.params.id);
+    const isIdValid = ObjectId.isValid(req.params.id);
     try {
       if (isIdValid) {
         const product = await Product.findById(req.params.id);
@@ -46,7 +46,7 @@ class ProductController {
   }
 
   async updateProduct(req, resp) {
-    const isIdValid = ObjectID.isValid(req.params.id);
+    const isIdValid = ObjectId.isValid(req.params.id);
     try {
       if (isIdValid) {
         const checkProduct = await Product.findById(req.params.id);
@@ -71,7 +71,7 @@ class ProductController {
   }
 
   async deleteProduct(req, resp) {
-    const isIdValid = ObjectID.isValid(req.params.id);
+    const isIdValid = ObjectId.isValid(req.params.id);
     try {
       if (isIdValid) {
         const product = await Product.findById(req.params.id);
